@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template, jsonify, flash, session, json
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_modus import Modus
 #from flask_mail import Mail
 from flask_moment import Moment
@@ -45,6 +46,10 @@ toolbar = DebugToolbarExtension(app)
 
 from token2 import generate_confirmation_token, confirm_token
 #from email2 import send_email
+
+migrate = Migrate(app, db)
+
+
 
 @app.template_filter()
 def usdollar(value):
