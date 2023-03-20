@@ -556,11 +556,11 @@ def register():
 
         return render_template('register.html', sitekey=sitekey)
     # hash the password for storage
-    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-    user_id_hashed = bcrypt.generate_password_hash(username).decode('utf-8')
+    #pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+    #user_id_hashed = bcrypt.generate_password_hash(username).decode('utf-8')
     #mobile phone
-    #pw_hash = bcrypt.generate_password_hash(password)
-    #user_id_hashed = bcrypt.generate_password_hash(username)
+    pw_hash = bcrypt.generate_password_hash(password)
+    user_id_hashed = bcrypt.generate_password_hash(username)
     # create a user, and check if its unique
     user = User(username, user_id_hashed, pw_hash, email, confirmed=False)
     u_unique = user.unique()
