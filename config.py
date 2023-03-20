@@ -12,16 +12,20 @@ class Config(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # mail settings
-  
-    
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
 
     # gmail authentication
     MAIL_USERNAME = os.environ['APP_MAIL_USERNAME']
     MAIL_PASSWORD = os.environ['APP_MAIL_PASSWORD']
+
     # mail accounts
     MAIL_DEFAULT_SENDER = os.environ['APP_MAIL_USERNAME_SENDER']
     RECAPTCHA_SITE_KEY = os.environ['RECAPTCHA_KEY']
     SECRET_SITE_KEY = os.environ['SECRET_KEY_RECAPTCHA']
+    DROPBOX_ACCESS_TOKEN = os.environ['DROPBOX_TOKEN']
     
 
     #SQLALCHEMY_DATABASE_URI = 'mysql://uolcg8z6xjblwsuq:DlBzAEijVaY886OcOjjZ@b5ick1tqoytd9ldsooyn-mysql.services.clever-cloud.com:3306/b5ick1tqoytd9ldsooyn'
