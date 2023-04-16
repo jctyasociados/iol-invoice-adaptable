@@ -645,7 +645,7 @@ def confirm_email(token):
         db.session.add(user)
         db.session.commit()
         flash('You have confirmed your account. Thanks!', 'success')
-    return render_template('login.html', sitekey=sitekey)
+    return render_template('login-confirmation.html', sitekey=sitekey)
     
 @app.route('/password-recovery/<token>')
 def password_reset(token):
