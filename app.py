@@ -452,6 +452,55 @@ def login():
         elif registered_user.username == username and bcrypt.check_password_hash(registered_user.password, password) == True and registered_user.confirmed == True:
     	    login_user(registered_user, remember=remember_me)  
         return redirect(request.args.get('next') or url_for('appindex'))
+
+@app.route("/login-confirmation", methods=["GET", "POST"])
+def login-confirmation():
+    
+
+
+    # clear the inital flash message
+    session.clear()
+    if request.method == 'GET':
+        return render_template('login-confirmation.html')
+    if request.method == 'POST':
+        # get the form data
+        username = request.form['username']
+        password = request.form['password']
+        
+         
+        remember_me = False
+        if 'remember_me' in request.form:
+            remember_me = True
+        
+        
+
+        # query the user
+        registered_user = User.query.filter_by(username=username).first()
+
+        # check the passwords
+        if registered_user is None:
+            flash("Invalid Username", "warning")
+            return render_template('login-confirmation.html')
+        
+        if registered_user.username == username and bcrypt.check_password_hash(registered_user.password, password) == False:
+    	    flash("Invalid Password", "warning")
+    	    return render_template('login-confirmation.html')
+        
+        if not is_human(captcha_response):
+            # Log invalid attempts
+            status = "Sorry ! Please Check Im not a robot."
+            flash(status, "warning")
+            return render_template('login-confirmation.html')
+        #return redirect(url_for('login'))
+
+        # login the user
+        
+        if registered_user.username == username and bcrypt.check_password_hash(registered_user.password, password) == True and registered_user.confirmed == False:
+            flash("You have to confirm your email.", "warning")
+            return render_template('login-confirmation.html')
+        elif registered_user.username == username and bcrypt.check_password_hash(registered_user.password, password) == True and registered_user.confirmed == True:
+    	    login_user(registered_user, remember=remember_me)  
+        return redirect(request.args.get('next') or url_for('appindex'))
     
     	      	
 @app.route('/recover', methods=["GET", "POST"])
