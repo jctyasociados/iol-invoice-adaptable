@@ -454,7 +454,7 @@ def login():
         return redirect(request.args.get('next') or url_for('appindex'))
 
 @app.route("/login-confirmation", methods=["GET", "POST"])
-def login-confirmation():
+def login_confirmation():
     
 
 
@@ -486,13 +486,6 @@ def login-confirmation():
     	    flash("Invalid Password", "warning")
     	    return render_template('login-confirmation.html')
         
-        if not is_human(captcha_response):
-            # Log invalid attempts
-            status = "Sorry ! Please Check Im not a robot."
-            flash(status, "warning")
-            return render_template('login-confirmation.html')
-        #return redirect(url_for('login'))
-
         # login the user
         
         if registered_user.username == username and bcrypt.check_password_hash(registered_user.password, password) == True and registered_user.confirmed == False:
